@@ -8,14 +8,9 @@ class UserManufacturer extends Model {
 
 UserManufacturer.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-    },
     manufacturer_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -24,7 +19,6 @@ UserManufacturer.init(
         key: 'id'
       }
     }
-  
   },
   {
     sequelize,

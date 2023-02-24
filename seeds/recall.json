@@ -1,0 +1,25 @@
+[
+    {
+        "recalling_firm" : "Pharmatech LLC",
+        "recall_number" : "F-0276-2017",
+        "comment" : "Located the packages and threw them out.",
+        "reason_for_recall" : "Recall initiated as a precautionary measure due to potential risk of product contamination with Burkholderia cepacia.",
+        "user_id": 1
+    },
+    {
+        "recalling_firm" : "Phizer LLC",
+        "recall_number" : "F-0276-2035",
+        "comment" : "Located the packages and discarded.",
+        "reason_for_recall" : "FreshPoint South Florida is recalling sliced fresh yellow onions and salsa products processed using yellow onions sourced from Gills Onions, LLC which were recalled for Listeria monocytogenes.",
+        "user_id": 2
+    },
+    {
+        "recalling_firm" : "CocaCola INC",
+        "recall_number" : "F-0276-1876",
+        "comment" : "Located the packages and discarded.",
+        "reason_for_recall" : "Pure Planet Organic Parasite Cleanse;  Net Wt. 174g Glass Jar;  Finished Product Item # 52700    Manufactured and Distributed by:  Pure Planet,  Rancho Dominguez, CA",
+        "user_id": 3
+    }
+]
+
+
