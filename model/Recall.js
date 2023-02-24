@@ -5,11 +5,6 @@ class Recall extends Model {}
 
 Recall.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true
-    },
     recalling_firm: {
       type: DataTypes.STRING
     },
@@ -35,6 +30,9 @@ Recall.init(
         key: 'id'
       },
       primaryKey: true
+    },
+    comment: {
+      type: DataTypes.STRING
     }
   },
   {

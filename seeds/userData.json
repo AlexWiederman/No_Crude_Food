@@ -1,0 +1,17 @@
+[
+    {
+        "company_name" : "Taco Bell",
+        "email": "tacoBellYum@gmail.com",
+        "password": "password"
+    },
+    {
+        "company_name" : "Chipotle",
+        "email": "chipotle@gmail.com",
+        "password": "password123"
+    },
+    {
+        "company_name" : "Burger King",
+        "email": "burgerKing@gmail.com",
+        "password": "password2222"
+    }
+]

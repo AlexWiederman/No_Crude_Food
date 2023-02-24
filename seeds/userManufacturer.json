@@ -1,0 +1,14 @@
+[
+    {
+        "manufacturer_name": "Pharmatech LLC",
+        "user_id": 1
+    },
+    {
+        "manufacturer_name": "Phizer LLC",
+        "user_id": 2
+    },
+    {
+        "manufacturer_name": "CocaCola INC",
+        "user_id": 3
+    }
+]
