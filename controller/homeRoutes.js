@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 router.get('/fdaData', async (req, res) => {
   try {
     // Make fetch request to FDA API to get data
-    const response = await fetch('https://api.fda.gov/drug/event.json?limit=10')
+    const response = await fetch('https://api.fda.gov/food/enforcement.json?search=recalling_firm:Pharmatech+LLC+AND+status.exact:Ongoing')
     const data = await response.json()
 
     res.status(200).json(data)
