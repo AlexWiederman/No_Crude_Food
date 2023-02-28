@@ -1,82 +1,53 @@
-const express = require('express');
-const router = express.Router();
-const { loginUser, logoutUser, createUser } = require('./userController');
+const express = require('express')
+const router = express.Router()
+const { User } = require('../../models')
 
-router.post('/login', loginUser);
-router.get('/logout', logoutUser);
-router.post('/signup', createUser);
+// Signup a new user
+router.post('/signup', async (req, res) => {
+  try {
+    const userData = await User.create(req.body)
+    req.session.user_id = userData.id
+    req.session.logged_in = true
+    res.status(200).json(userData)
+  } catch (err) {
+    res.status(400).json(err)
+  }
+})
 
-module.exports = router;
+// Login a user
+router.post('/login', async (req, res) => {
+  try {
+    const userData = await User.findOne({ where: { email: req.body.email } })
 
-
-const passport = require('passport');
-
-function loginUser(req, res) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) {
-      res.status(500).json({
-        error: 'Failed to authenticate user',
-      });
-    } else if (!user) {
-      res.status(401).json({
-        error: 'Invalid username or password',
-      });
-    } else {
-      req.logIn(user, function(err) {
-        if (err) {
-          res.status(500).json({
-            error: 'Failed to set session',
-          });
-        } else {
-          res.status(200).json({
-            message: 'User successfully logged in',
-          });
-        }
-      });
+    if (!userData) {
+      res.status(400).json({ message: 'Incorrect email or password, please try again' })
+      return
     }
-  })(req, res);
-}
-  
-  function createUser(req, res) {
-    const { username, password } = req.body;
-  
-    User.findOne({ username: username })
-      .then(existingUser => {
-        if (existingUser) {
-          return res.status(400).json({ message: 'Username already taken' });
-        }
-  
-        const newUser = new User({ username: username });
-        newUser.setPassword(password);
-        newUser.save()
-          .then(user => {
-            req.login(user, err => {
-              if (err) {
-                return res.status(500).json({ message: 'Error setting session' });
-              }
-              return res.status(200).json({ message: 'User created successfully' });
-            });
-          })
-          .catch(err => {
-            console.error(err);
-            return res.status(500).json({ message: 'Error creating user account' });
-          });
-      })
-      .catch(err => {
-        console.error(err);
-        return res.status(500).json({ message: 'Error checking for existing user' });
-      });
+
+    const validPassword = await userData.checkPassword(req.body.password)
+
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect email or password, please try again' })
+      return
+    }
+
+    req.session.user_id = userData.id
+    req.session.logged_in = true
+    res.json({ user: userData, message: 'You are now logged in!' })
+  } catch (err) {
+    res.status(400).json(err)
   }
+})
 
-  function logoutUser(req, res) {
-    req.logout(); 
-    res.redirect('/login'); 
+// Logout a user
+router.post('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end()
+    })
+  } else {
+    res.status(404).end()
   }
-  
-  
-  
-  module.exports = { loginUser, logoutUser, createUser };
-  
+})
 
-
-
+module.exports = router
