@@ -2,6 +2,14 @@ const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch')
 
+router.get('/', async (req, res) => {
+  try {
+    res.render('homepage')
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
+
 router.get('/fdaData', async (req, res) => {
   try {
     // Make fetch request to FDA API to get data
