@@ -25,9 +25,9 @@ const loginFormHandler = async (event) => {
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
-  const firstName = document.querySelector('#first-name-input').value.trim();
-  const lastName = document.querySelector('#last-name-input').value.trim();
-  const companyName = document.querySelector('#company-name').value.trim();
+  const firstName = document.querySelector('#validationCustom01').value.trim();
+  const lastName = document.querySelector('#validationCustom02').value.trim();
+  const companyName = document.querySelector('#validationCustomCompanyname').value.trim();
   const email = document.querySelector('#email-signup').value.trim();
   const password = document.querySelector('#password-signup').value.trim();
   // if the person entered a name, email, and password, we will create a new User with the User model
@@ -48,7 +48,7 @@ const signupFormHandler = async (event) => {
 
 document
   .querySelector('#login-btn')
-  .addEventListener('submit', loginFormHandler)
+  .addEventListener('click', loginFormHandler)
 
 document.querySelector('#submit-btn')
-  .addEventListener('submit', signupFormHandler)
+  .addEventListener('click', signupFormHandler)
