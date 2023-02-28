@@ -1,5 +1,5 @@
 const sequelize = require('../config/connection');
-const { User, Recall , UserManufacturer,} = require('../model');
+const { User, Recall, UserManufacturer} = require('../model');
 
 const userData = require('./userData.json');
 const recallData = require('./recall.json');
@@ -22,6 +22,6 @@ const seedDatabase = async () => {
   });
 
   process.exit(0);
-};
+}
 
 seedDatabase();
