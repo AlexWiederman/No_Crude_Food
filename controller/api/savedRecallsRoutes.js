@@ -8,8 +8,6 @@ router.post('/:reportId/comment', addComment);
 
 router.get('/', getReports);
 
-module.exports = router;
-
 
 function saveRecall(req, res) {
     const { reportTitle, reportDate, recallDetails } = req.body;
