@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { User } = require('../../model')
+const { UserManufacturer } = require('../../model')
 
 // Signup a new user
 router.post('/signup', async (req, res) => {
@@ -53,4 +54,16 @@ router.post('/logout', (req, res) => {
   }
 })
 
+// add a new manufacturer
+router.post('/addManufacturer', (req, res) => {
+  try {
+    const newManufacturer = UserManufacturer.create({
+      ...req.body,
+      user_id: req.session.user_id
+    })
+    res.status(200).json(newManufacturer)
+  } catch (err) {
+    res.status(400).json(err)
+  }
+})
 module.exports = router
