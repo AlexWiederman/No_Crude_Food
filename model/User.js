@@ -16,7 +16,15 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    company_name: {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    companyName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
