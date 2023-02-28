@@ -1,0 +1,24 @@
+{{#each recalls as |recall| }}
+<div class="row mb-4 recall">
+  <div class="col-md-5">
+    <h2>
+      <!-- Display the recall information -->
+      
+      <a href="/recall/{{recall.id}}">{{recall.recalling_firm}}</a>
+    </h2>
+    <p>
+      <!-- Display more information -->
+      Reason: {{recall.reason_for_recall}}
+    </p>
+    <p>Created on {{recall.date_created}}</p>
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{recall.product_description}}
+    </p>
+
+    <p>User comments: {{recall.comments}}</p>
+    <p>{{recall.user.company_name}}</p>
+  </div>
+</div>
+{{/each}}
