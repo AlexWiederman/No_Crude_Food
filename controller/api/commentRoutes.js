@@ -10,8 +10,6 @@ router.delete('/:commentId', deleteComment);
 
 router.get('/:recallId', getComments);
 
-module.exports = router;
-
 
 function createComment(req, res) {
     const { comment, time_date, recall_id, user_id } = req.body;
@@ -59,6 +57,7 @@ function createComment(req, res) {
   }
 
   function deleteComment(req, res) {
+
     const { commentId } = req.params;
   
     db.deleteComment(commentId, (error, result) => {
