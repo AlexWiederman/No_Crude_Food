@@ -53,7 +53,10 @@ router.get('/fdaData', async (req, res) => {
     const response = await fetch('https://api.fda.gov/food/enforcement.json?search=recalling_firm:Pharmatech+LLC+AND+status.exact:Ongoing')
     const data = await response.json()
 
-    res.status(200).json(data)
+    /* res.status(200).json(data) */
+    res.render('seeRecalls', {
+      data: data
+    })
   } catch (err) {
     // Handle any errors that occur during fetch request
     res.status(500).json({ message: 'Error fetching FDA data' })
