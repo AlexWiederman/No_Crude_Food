@@ -1,18 +1,36 @@
-const express = require('express')
-const router = express.Router()
-const fetch = require('node-fetch')
+const express = require("express");
+const router = express.Router();
+const { UserManufacturer } = require("../../model");
 
-// Route to get FDA information
-router.get('/fdaInfo', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const response = await fetch('https://api.fda.gov/drug/label.json')
-    const data = await response.json()
+    // Find user sessions id
+    console.warn(req.session.user_id);
+    const manufacData = await UserManufacturer.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+    });
+    const datas = manufacData.map((data) => data.get({ plain: true }));
 
-    res.status(200).json(data)
+    // replace spaces in string with "+" symbol
+
+    let response;
+    // loop through all of the manufacturers of a user to get all of the api requests per manufacturer
+    for (let i = 0; i < datas.length; i++) {
+      const apiManufac = datas[i].manufacturer_name.split(" ").join("+");
+      console.warn(apiManufac);
+      response = await fetch(
+        // `https://api.fda.gov/food/enforcement.json?search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=5`
+        `https://api.fda.gov/food/enforcement.json?search=recalling_firm:"Pharmatech+LLC"+AND+status.exact:Ongoing&limit=5`
+      );
+    }
+
+    res.status(200).json(response);
   } catch (err) {
     // Handle any errors that occur during fetch request
-    res.status(500).json({ message: 'Error fetching FDA information' })
+    res.status(500).json({ message: "Error fetching FDA data" });
   }
-})
+});
 
-module.exports = router
+module.exports = router;
