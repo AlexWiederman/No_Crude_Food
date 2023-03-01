@@ -1,3 +1,15 @@
 <div class="row text-center">
   <p>{{data}}</p>
 </div>
+
+{{#if datas.length}}
+<div class="col-12 recall list">
+  <h2>Your Recalls:</h2>
+    {{#each datas as |data|}}
+      {{> commentRecall.handlebars}}
+    {{/each}}
+
+</div>
+{{/if}}
+
+<script src="/javascript/add-recall.js"></script>
