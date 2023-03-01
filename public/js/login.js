@@ -24,24 +24,24 @@ const loginFormHandler = async (event) => {
 }
 
 const signupFormHandler = async (event) => {
-  event.preventDefault();
-  const firstName = document.querySelector('#validationCustom01').value.trim();
-  const lastName = document.querySelector('#validationCustom02').value.trim();
-  const companyName = document.querySelector('#validationCustomCompanyname').value.trim();
-  const email = document.querySelector('#email-signup').value.trim();
-  const password = document.querySelector('#password-signup').value.trim();
+  event.preventDefault()
+  const firstName = document.querySelector('#validationCustom01').value.trim()
+  const lastName = document.querySelector('#validationCustom02').value.trim()
+  const companyName = document.querySelector('#validationCustomCompanyname').value.trim()
+  const email = document.querySelector('#email-signup').value.trim()
+  const password = document.querySelector('#password-signup').value.trim()
   // if the person entered a name, email, and password, we will create a new User with the User model
   if (firstName && lastName && companyName && email && password) {
     const response = await fetch('/api/users/signup', {
       method: 'POST',
       body: JSON.stringify({ firstName, lastName, companyName, email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+      headers: { 'Content-Type': 'application/json' }
+    })
     // and if successful, we will reroute to the profile page
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/profile')
     } else {
-      alert(response.statusText);
+      alert(response.statusText)
     }
   }
 }

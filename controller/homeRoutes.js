@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch')
-const User = require('../model/User');
-const UserManufacturer = require('../model/UserManufacturer');
-const withAuth = require('../utilities/auth');
+const User = require('../model/User')
+const UserManufacturer = require('../model/UserManufacturer')
+const withAuth = require('../utilities/auth')
 
 // basic home route
 router.get('/', async (req, res) => {
