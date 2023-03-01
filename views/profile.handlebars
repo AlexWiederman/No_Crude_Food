@@ -1,9 +1,9 @@
 {{!-- welcoming message to the company --}}
 <div class="row">
   <div class="col-auto">
-    <h2>Welcome, {{company_name}}!</h2>
-    <h4>User, {{first_name}} {{last_name}}</h4>
-    <h4>Email: {{email}}</h4>
+    <h2>Welcome, {{user.companyName}}!</h2>
+    <h4>User, {{user.firstName}} {{user.lastName}}</h4>
+    <h4>Email: {{user.email}}</h4>
   </div>
 </div>
 
@@ -18,19 +18,20 @@
         <input class="form-input" type="text" id="manufacturer-name" name="manufacturer-name" />
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button id="submit-manufacturer" type="submit" class="btn btn-primary">Create</button>
       </div>
     </form>
     </div>
 
-    {{#if manufacturers.length}}
+    {{#if user.usermanufacturers.length}}
   <div class="col-md-6 project-list">
     <h3>Current Manufacturers:</h3>
 
-    {{#each manufacturers as |manufacturer|}}
+    {{#each user.usermanufacturers as |manufacturer|}}
     <div class="row mb-2">
       <div class="col-md-8">
-        <h4><a href="/usermanufacturer/{{manufacturer.id}}">{{manufacturer.name}}</a></h4>
+        <h4><a href="/usermanufacturer/{{manufacturer.user_id}}">{{manufacturer.manufacturer_name}}</a></h4>
+      {{manufacturer.manufacturer_name}}
       </div>
       <div class="col-md-4">
         <button class="btn btn-sm btn-danger" data-id="{{manufacturer.id}}">DELETE</button>
@@ -40,3 +41,4 @@
   </div>
   {{/if}}
 </div>
+<script="./js/addManufacturer.js"

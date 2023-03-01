@@ -1,14 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const { User } = require('../../models')
+const { User } = require('../../model')
+const { UserManufacturer } = require('../../model')
 
 // Signup a new user
 router.post('/signup', async (req, res) => {
   try {
     const userData = await User.create(req.body)
-    req.session.user_id = userData.id
-    req.session.logged_in = true
-    res.status(200).json(userData)
+    req.session.save(() => {
+      req.session.user_id = userData.id
+      req.session.logged_in = true
+      res.status(200).json(userData)
+    })
   } catch (err) {
     res.status(400).json(err)
   }
@@ -30,10 +33,11 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'Incorrect email or password, please try again' })
       return
     }
-
-    req.session.user_id = userData.id
-    req.session.logged_in = true
-    res.json({ user: userData, message: 'You are now logged in!' })
+    req.session.save(() => {
+      req.session.user_id = userData.id
+      req.session.logged_in = true
+      res.json({ user: userData, message: 'You are now logged in!' })
+    })
   } catch (err) {
     res.status(400).json(err)
   }
@@ -50,4 +54,16 @@ router.post('/logout', (req, res) => {
   }
 })
 
+// add a new manufacturer
+router.post('/addManufacturer', (req, res) => {
+  try {
+    const newManufacturer = UserManufacturer.create({
+      ...req.body,
+      user_id: req.session.user_id
+    })
+    res.status(200).json(newManufacturer)
+  } catch (err) {
+    res.status(400).json(err)
+  }
+})
 module.exports = router
