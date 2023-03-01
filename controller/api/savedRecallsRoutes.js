@@ -1,61 +1,54 @@
-const express = require('express');
-const router = express.Router();
-const { saveRecall, addComment, getReports } = require('./SavedRecallsController');
+const router = require('express').Router()
+const { Recall, Comment } = require('../../model')
 
-router.post('/', saveRecall);
+// Save a new recall
+router.post('/', async (req, res) => {
+  try {
+    const newRecall = await Recall.create({
+      ...req.body,
+      user_id: req.session.user_id
+    })
 
-router.post('/:reportId/comment', addComment);
-
-router.get('/', getReports);
-
-
-function saveRecall(req, res) {
-    const { reportTitle, reportDate, recallDetails } = req.body;
-  
-    const recall = new Recall({ reportTitle, reportDate, recallDetails });
-    recall.save((err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Failed to save recall report' });
-      }
-      return res.status(200).json({ message: 'Recall report saved successfully' });
-    });
+    res.status(200).json(newRecall)
+  } catch (err) {
+    res.status(400).json(err)
   }
-  
-  function addComment(req, res) {
-    const comment = req.body.comment;
-    const reportId = req.params.reportId;
-  
-    Recall.findByIdAndUpdate(
-      reportId,
-      { $push: { comments: comment } },
-      (err, recall) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ error: 'Failed to add comment to recall report' });
+})
+
+// Add a comment to a recall
+// router.post('/:id/comments', async (req, res) => {
+//   try {
+//     const newComment = await Comment.create({
+//       ...req.body,
+//       recall_id: req.params.id,
+//       user_id: req.session.user_id
+//     })
+
+//     res.status(200).json(newComment)
+//   } catch (err) {
+//     res.status(400).json(err)
+//   }
+// })
+
+// View a list of past recalls
+router.get('/', async (req, res) => {
+  try {
+    const recallsData = await Recall.findAll({
+      where: {
+        user_id: req.session.user_id
+      },
+      include: [
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'user_id', 'recall_id', 'created_at']
         }
-        if (!recall) {
-          return res.status(404).json({ error: 'Recall report not found' });
-        }
-        return res.status(200).json({ message: 'Comment added successfully' });
-      }
-    );
-  }
-  
-  
-  function getReports(req, res) {
- 
-    Recall.find({}, (err, reports) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Failed to retrieve recall reports' });
-      }
-      return res.status(200).json(reports);
-    });
-  }
-  
-  
-  module.exports = { saveRecall, addComment, getReports };
-  
+      ]
+    })
 
+    res.status(200).json(recallsData)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
 
+module.exports = router
