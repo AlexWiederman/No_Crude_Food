@@ -1,12 +1,12 @@
 const searchFDAButtonHandler = async (event) => {
   event.preventDefault()
 
-  const response = await fetch('/api/FDARoutes/search', {
+  const response = await fetch('/api/FDARoutes', {
     method: 'GET'
   })
 
   if (response.ok) {
-    document.location.replace('/api/FDARoutes')
+    document.location.replace('/seeRecalls')
   } else {
     alert(response.statusText)
   }
