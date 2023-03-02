@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Recall, Comment } = require('../../model')
+const { Recall, User } = require('../../model')
 
 // Save a new recall
 router.post('/', async (req, res) => {
@@ -15,6 +15,35 @@ router.post('/', async (req, res) => {
   }
 })
 
+// View a list of past recalls
+router.get('/', async (req, res) => {
+  try {
+    const recallsData = await Recall.findAll({
+      where: {
+        user_id: req.session.user_id
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['companyName']
+        }
+      ]
+    })
+
+    const recalls = recallsData.map((recall) => recall.get({ plain: true }))
+    // console.log(posts)
+    res.render('records', {
+      recalls,
+      // we are passing in logged_in status from session so that we can conditionally render the page with a login/logout button
+      logged_in: req.session.logged_in
+    })
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
+
+module.exports = router
+
 // Add a comment to a recall
 // router.post('/:id/comments', async (req, res) => {
 //   try {
@@ -29,26 +58,3 @@ router.post('/', async (req, res) => {
 //     res.status(400).json(err)
 //   }
 // })
-
-// View a list of past recalls
-router.get('/', async (req, res) => {
-  try {
-    const recallsData = await Recall.findAll({
-      where: {
-        user_id: req.session.user_id
-      },
-      include: [
-        {
-          model: Comment,
-          attributes: ['id', 'comment_text', 'user_id', 'recall_id', 'created_at']
-        }
-      ]
-    })
-
-    res.status(200).json(recallsData)
-  } catch (err) {
-    res.status(500).json(err)
-  }
-})
-
-module.exports = router
