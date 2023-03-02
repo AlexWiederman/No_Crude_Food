@@ -2,14 +2,14 @@
   <button id="recalls-btn" type="submit" class="btn btn-primary">Get recalls</button>
 </div>
 
-{{#if datas.length}}
+{{#if results.length}}
 <div class="col-12 recall list">
   <h2>Your Recalls:</h2>
-    {{#each datas as |data|}}
-      {{> commentRecall.handlebars}}
-    {{/each}}
-
+ 
+  {{#each results as |result|}}
+   {{> recallDetails}}
+  {{/each}}
 </div>
 {{/if}}
 
-<script src="/javascript/add-recall.js"></script>
+<script src="/js/addRecall.js"></script>
