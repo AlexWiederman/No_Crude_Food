@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { User } = require('../../model')
 const { UserManufacturer } = require('../../model')
+const withAuth = require('../../utilities/auth')
 
 // Signup a new user
 router.post('/signup', async (req, res) => {
@@ -55,7 +56,7 @@ router.post('/logout', (req, res) => {
 })
 
 // add a new manufacturer
-router.post('/addManufacturer', (req, res) => {
+router.post('/addManufacturer', withAuth, (req, res) => {
   try {
     const newManufacturer = UserManufacturer.create({
       ...req.body,
@@ -64,6 +65,28 @@ router.post('/addManufacturer', (req, res) => {
     res.status(200).json(newManufacturer)
   } catch (err) {
     res.status(400).json(err)
+  }
+})
+
+// delete a manufacturer
+router.delete('/:id', withAuth, async (req, res) => {
+  try {
+    const manufacturerData = await UserManufacturer.destroy({
+      // we are deleting the usermanufacturer relationship which has the id associated with the manufacturer we clicked to delete which is also associated with our user who is signed in
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id
+      }
+    })
+
+    if (!manufacturerData) {
+      res.status(404).json({ message: 'No post was found with this id.' })
+      return
+    }
+
+    res.status(200).json(manufacturerData)
+  } catch (err) {
+    res.status(500).json(err)
   }
 })
 module.exports = router
