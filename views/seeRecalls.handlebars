@@ -2,13 +2,13 @@
   <button id="recalls-btn" type="submit" class="btn btn-primary">Get recalls</button>
 </div>
 
-{{#if results.length}}
+{{#if resultsArray.length}}
 <div class="col-12 recall list">
   <h2>Your Recalls:</h2>
  
-  {{#each resultsArray.results as |result|}}
-   {{> recallDetails}}
-  {{/each}}
+ {{#each resultsArray.results}}
+      {{> recallDetails}}
+    {{/each}}
 </div>
 {{/if}}
 
