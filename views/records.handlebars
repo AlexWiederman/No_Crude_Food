@@ -3,22 +3,24 @@
   <div class="col-md-5">
     <h2>
       <!-- Display the recall information -->
-      
-      <a href="/recall/{{recall.id}}">{{recall.recalling_firm}}</a>
+     {{recall.recalling_firm}}'s Recall
     </h2>
-    <p>
+    
       <!-- Display more information -->
+      <h4>Recall Number: {{recall.recall_number}}</h4>
+      <h4>Product: {{recall.product_description}}</h4>
+    <h5>
       Reason: {{recall.reason_for_recall}}
-    </p>
-    <p>Created on {{recall.date_created}}</p>
+    </h5>
+    <p>This record was created on {{recall.date_created}}</p>
   </div>
   <div class="col-md-7">
     <p>
       {{recall.product_description}}
     </p>
 
-    <p>User comments: {{recall.comments}}</p>
-    <p>{{recall.user.companyName}}</p>
+    <p>User comments: {{recall.comment}}</p>
+    <p>by {{recall.user.companyName}}</p>
   </div>
 </div>
 {{/each}}
