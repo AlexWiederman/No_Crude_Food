@@ -30,6 +30,7 @@ router.get('/', async (req, res) => {
       urls[i] = { url: reqUrl }
     }
     res.render('seeRecalls', {
+      resultsArray,
       datas
     })
   } catch (err) {
