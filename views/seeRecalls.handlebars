@@ -1,15 +1,17 @@
 <div class="row text-center">
   <p>{{data}}</p>
 </div>
+<h3>Recalls page:</h3>
+<button id="search-fda" type="submit" class="btn btn-primary">Search for Recalls</button>
 
 {{#if datas.length}}
 <div class="col-12 recall list">
   <h2>Your Recalls:</h2>
     {{#each datas as |data|}}
-      {{> commentRecall.handlebars}}
+      
     {{/each}}
 
 </div>
 {{/if}}
 
-<script src="/javascript/add-recall.js"></script>
+<script src="/js/add-recall.js"></script>
