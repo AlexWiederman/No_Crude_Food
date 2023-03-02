@@ -53,7 +53,6 @@ router.get('/', withAuth, async (req, res) => {
 
 /* router.get('/search', async (req, res) => {
   try {
-<<<<<<< HEAD
     /* for (let i = 0; i < urls.length; i++) {
       console.warn(urls[i].url) */
       /* const dofetch = await fetch(reqUrl)
@@ -81,23 +80,4 @@ router.get('/', withAuth, async (req, res) => {
 /* const response = await fetch('https://catfact.ninja/fact') */
 /* console.warn(response)
 res.status(200).json(response) */
-=======
-    const keys = Object.keys(urls); // <-- get the keys of the urls object
-    for (const key of keys) { // <-- iterate over the keys using a for...of loop
-      console.warn(urls[key].url)
-      const dofetch = await fetch(urls[key].url)
-      const json = await dofetch.json()
-      console.log(json)
-      resultsArray.push(json)
-    }
-    console.log(resultsArray)
-    res.render('seeRecalls', {
-      resultsArray
-    })
-  } catch (err) {
-    res.status(500).json({ message: 'Error fetching FDA data' })
-  }
-});
-
->>>>>>> ed5789f5faac0c7c720cf74c523fdbee83c34747
 module.exports = router

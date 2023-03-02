@@ -10,9 +10,19 @@
    {{> recallDetails}}
   {{/each}}
 </div> --}}
-<div class="row">
+{{!-- <div class="row">
     <h1>Recall:</h1>
 <p>{{results.recalling_firm}}</p>
+</div> --}}
+<div class="row">
+<h1>Recall:</h1>
+<div>
+  <h2>{{results.product_description}}</h2>
+  <p>Reason for recall: {{results.reason_for_recall}}</p>
+  <p>Recalling firm: {{results.recalling_firm}}</p>
+  <p>Classification: {{results.classification}}</p>
+  <p>Status: {{results.status}}</p>
+</div>
 </div>
 {{else}}
 <p>There is no results</p>
