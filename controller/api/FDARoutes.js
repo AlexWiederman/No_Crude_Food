@@ -7,9 +7,11 @@ require('dotenv').config()
 
 let reqUrl
 
-const results = []
+let results
+
 router.get('/', withAuth, async (req, res) => {
   try {
+    results = []
   // Find user sessions id
     // console.warn(req.session.user_id)
 
@@ -30,12 +32,16 @@ router.get('/', withAuth, async (req, res) => {
 
       const result = await fetch(reqUrl)
         .then(res => res.json())
-
+        // console.log(result.length)
+// if (result.length === 0) {
+//  console.log("Failed")
+//   return
+// }
       results.push(...result.results)
     }
   } catch (err) {
     // Handle any errors that occur during fetch request
-    res.status(500).json({ message: 'Error finding manufacturer relationships' })
+    res.status(500).json({ message: 'No food recalls found for your manufacturer(s)' })
   } finally {
     console.log(results)
     res.render('seeRecalls', {
