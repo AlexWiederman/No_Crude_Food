@@ -6,8 +6,22 @@ const withAuth = require('../../utilities/auth')
 require('dotenv').config()
 
 let reqUrl
-
+let status
 let results
+
+function searchObject (root, pathArray) {
+  let node = root
+  for (const index in pathArray) {
+    key = pathArray[index]
+    if (key in node) {
+      node = node[key]
+    } else {
+      node = null
+      break
+    }
+  }
+  return node
+}
 
 router.get('/', withAuth, async (req, res) => {
   try {
@@ -29,31 +43,37 @@ router.get('/', withAuth, async (req, res) => {
     for (let i = 0; i < datas.length; i++) {
       const apiManufac = datas[i].manufacturer_name.split(' ').join('+')
 
-      reqUrl = `https://api.fda.gov/food/enforcement.json?api_key=${process.env.API_KEY}&search=recalling_firm:${apiManufac}+AND+status.exact:Ongoing&limit=10`
+      reqUrl = `https://api.fda.gov/food/enforcement.json?api_key=${process.env.API_KEY}&search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=2`
 
       const result = await fetch(reqUrl).then((res) => res.json())
-      // console.log(result)
-      // if (result.length === 0) {
-      //  console.log("Failed")
-      //   return
-      // }
-      results.push(...result.results)
+      console.log(reqUrl)
+      console.log(result)
+      console.log(result.error)
+      // console.log(searchObject(result.error, ["message"]))
+      if (result.error == null) {
+        results.push(...result.results)
+      }
+      
+      
     }
+    console.log(results)
   } catch (err) {
     // Handle any errors that occur during fetch request
-    res
-      .status(500)
-      .json({
-        message:
-          'No food recalls found for your manufacturer(s). Please go back to the page before.'
-      })
+    status = 500
+    res.status(500).json({
+      message:
+        'No food recalls found for your manufacturer(s). Please go back to the page before.'
+    })
   } finally {
     // console.log(results)
-    res.render('seeRecalls', {
-      results,
-      logged_in: req.session.logged_id,
-      found: results.length > 0
-    })
+    console.log(status)
+    if (status !== 500) {
+      res.render('seeRecalls', {
+        results,
+        logged_in: req.session.logged_id,
+        found: results.length > 0
+      })
+    }
   }
 })
 
