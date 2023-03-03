@@ -5,9 +5,7 @@ const searchFDAButtonHandler = async (event) => {
     method: 'GET'
   })
 
-  if (response.ok) {
-    document.location.replace('/api/FDARoutes')
-  } else {
+  if (!response.ok) {
     alert(response.statusText)
   }
 }

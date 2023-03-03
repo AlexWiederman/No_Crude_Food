@@ -3,8 +3,7 @@ const express = require('express')
 const router = express.Router()
 const { UserManufacturer } = require('../../model')
 
-const urls = {}
-let resultsArray = []
+const urls = []
 
 router.get('/', async (req, res) => {
   try {
@@ -21,17 +20,24 @@ router.get('/', async (req, res) => {
 
     let reqUrl
     // loop through all of the manufacturers of a user to get all of the api requests per manufacturer
+    const jsonResults = []
     for (let i = 0; i < datas.length; i++) {
       const apiManufac = datas[i].manufacturer_name.split(' ').join('+')
-      // console.warn(apiManufac)
+      
 
       reqUrl = `https://api.fda.gov/food/enforcement.json?api_key=5khaeeOSSl7L3hc7vWcvW6IOKIkMgqRpss9Vfz4X&search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=5`
-      // urlArray = urlArray.push(reqUrl)
-      urls[i] = { url: reqUrl }
+
+        const dofetch = await fetch(reqUrl)
+        const results = await dofetch.json()
+        jsonResults.push(...results.results)
+  
+     
     }
+    console.log(jsonResults)
     res.render('seeRecalls', {
-      resultsArray,
-      datas
+      datas,
+      logged_in: req.session.logged_in,
+      jsonResults
     })
   } catch (err) {
     // Handle any errors that occur during fetch request
@@ -39,23 +45,6 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/search', async (req, res) => {
-  try {
-    const keys = Object.keys(urls); // <-- get the keys of the urls object
-    for (const key of keys) { // <-- iterate over the keys using a for...of loop
-      console.warn(urls[key].url)
-      const dofetch = await fetch(urls[key].url)
-      const json = await dofetch.json()
-      console.log(json)
-      resultsArray.push(json)
-    }
-    console.log(resultsArray)
-    res.render('seeRecalls', {
-      resultsArray
-    })
-  } catch (err) {
-    res.status(500).json({ message: 'Error fetching FDA data' })
-  }
-});
+
 
 module.exports = router
