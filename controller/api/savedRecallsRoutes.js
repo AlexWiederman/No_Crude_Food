@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-// View a list of past recalls
+// View a list of past recalls (route : /api/records)
 router.get('/', async (req, res) => {
   try {
     const recallsData = await Recall.findAll({
