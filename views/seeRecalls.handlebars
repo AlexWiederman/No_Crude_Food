@@ -1,34 +1,38 @@
-{{#if results}}
-  <div class="row">
-    <div class="col-12">
-      <form class="form">
-        <h1>Recall:</h1>
+{{#if results.length}}
 
-        <h2>{{results.product_description}}</h2>
-        <p>Reason for recall: {{results.reason_for_recall}}</p>
-        <p>Recalling firm: {{results.recalling_firm}}</p>
-        <p>Classification: {{results.classification}}</p>
-        <p>Status: {{results.status}}</p>
+  {{#each results as |results|}}
+    <div class="row">
+      <div class="col-12">
+        <form class="form">
+          <h1>Recall:</h1>
 
-        <div class="form-group">
-          <label for="recall-name">Comment:</label>
-          <input
-            class="form-input"
-            type="text"
-            id="recall-name"
-            name="recall-name"
-          />
-        </div>
-        <div class="form-group">
-          <button
-            id="submit-manufacturer"
-            type="submit"
-            class="btn btn-primary"
-          >SAVE</button>
-        </div>
-      </form>
+          <h2>{{results.product_description}}</h2>
+          <p>Reason for recall: {{results.reason_for_recall}}</p>
+          <p>Recalling firm: {{results.recalling_firm}}</p>
+          <p>Classification: {{results.classification}}</p>
+          <p>Status: {{results.status}}</p>
+
+          <div class="form-group">
+            <label for="recall-name">Comment:</label>
+            <input
+              class="form-input"
+              type="text"
+              id="recall-name"
+              name="recall-name"
+            />
+          </div>
+          <div class="form-group">
+            <button
+              id="submit-manufacturer"
+              type="submit"
+              class="btn btn-primary"
+            >SAVE</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  {{/each}}
+
 {{else}}
   <p>There is no results</p>
 {{/if}}
