@@ -7,9 +7,11 @@ require('dotenv').config()
 
 let reqUrl
 
-const results = []
+let results
+
 router.get('/', withAuth, async (req, res) => {
   try {
+    results = []
   // Find user sessions id
     // console.warn(req.session.user_id)
 
@@ -30,7 +32,9 @@ router.get('/', withAuth, async (req, res) => {
 
       const result = await fetch(reqUrl)
         .then(res => res.json())
-
+// if (result.length === 0) {
+//   res.status(400).json({message: "No"})
+// }
       results.push(...result.results)
     }
   } catch (err) {
