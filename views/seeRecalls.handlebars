@@ -2,7 +2,7 @@
   <button id="recalls-btn" type="submit" class="btn btn-primary">Get recalls</button>
 </div>
  --}}
-{{#if results}}
+{{#if results.length}}
 {{!-- <div class="col-12 recall list">
   <h2>Your Recalls:</h2>
  
@@ -14,7 +14,8 @@
     <h1>Recall:</h1>
 <p>{{results.recalling_firm}}</p>
 </div> --}}
-<div class="row">
+{{#each results as |results|}}
+      <div class="row">
 <h1>Recall:</h1>
 <div>
   <h2>{{results.product_description}}</h2>
@@ -24,6 +25,8 @@
   <p>Status: {{results.status}}</p>
 </div>
 </div>
+    {{/each}}
+
 {{else}}
 <p>There is no results</p>
 {{/if}}

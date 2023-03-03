@@ -34,10 +34,9 @@ router.get('/', withAuth, async (req, res) => {
     fetch(reqUrl)
       .then(res => res.json())
       .then(function (json) {
-        console.log(json.results[0])
-
-        /* res.status(200).json(json.results[0]) */
-        const results = json.results[0]
+        const results = []
+        results.push(...json.results)
+        console.log(results)
 
         res.render('seeRecalls', {
           results,
@@ -51,33 +50,4 @@ router.get('/', withAuth, async (req, res) => {
   }
 })
 
-/* router.get('/search', async (req, res) => {
-  try {
-    /* for (let i = 0; i < urls.length; i++) {
-      console.warn(urls[i].url) */
-      /* const dofetch = await fetch(reqUrl)
-      console.warn(dofetch) */
-      
-      /* const json = res.json()
-      console.log(json.results) */
-      /* resultsArray.push(json) */
-   /*  } */
-   /*  console.log(resultsArray) 
-    
-  } catch (err) {
-    res.status(500).json({ message: 'Error fetching FDA data' })
-  }
-}
-)
- */
-// const options = {
-//   method:'GET'
-// }
-// const response = await fetch('https://catfact.ninja/fact')
-// https://api.fda.gov/food/enforcement.json?search=recalling_firm:"Pharmatech+LLC"+AND+status.exact:Ongoing&limit=5
-// `https://api.fda.gov/food/enforcement.json?search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=5`
-
-/* const response = await fetch('https://catfact.ninja/fact') */
-/* console.warn(response)
-res.status(200).json(response) */
 module.exports = router
