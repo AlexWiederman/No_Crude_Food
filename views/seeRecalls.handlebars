@@ -1,16 +1,16 @@
-{{#if results.length}}
+{{#if found}}
 
-  {{#each results as |results|}}
+  {{#each results as |result|}}
     <div class="row">
       <div class="col-12">
         <form class="form">
           <h1>Recall:</h1>
 
-          <h2>{{results.product_description}}</h2>
-          <p>Reason for recall: {{results.reason_for_recall}}</p>
-          <p>Recalling firm: {{results.recalling_firm}}</p>
-          <p>Classification: {{results.classification}}</p>
-          <p>Status: {{results.status}}</p>
+          <h2>{{result.product_description}}</h2>
+          <p>Reason for recall: {{result.reason_for_recall}}</p>
+          <p>Recalling firm: {{result.recalling_firm}}</p>
+          <p>Classification: {{result.classification}}</p>
+          <p>Status: {{result.status}}</p>
 
           <div class="form-group">
             <label for="recall-name">Comment:</label>
