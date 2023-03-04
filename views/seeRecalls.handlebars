@@ -6,24 +6,28 @@
         <form class="form">
           <h1>Recall:</h1>
 
-          <h2>{{result.product_description}}</h2>
-          <p>Reason for recall: {{result.reason_for_recall}}</p>
-          <p>Recalling firm: {{result.recalling_firm}}</p>
-          <p>Classification: {{result.classification}}</p>
-          <p>Status: {{result.status}}</p>
+          <h2 id="description">{{result.product_description}}</h2>
+          <p>Reason for recall:
+            <div id="reason"> {{result.reason_for_recall}}</div></p>
+          <p>Recalling firm:
+            <div id="recall-firm"> {{result.recalling_firm}}</div></p>
+          <p>Classification:
+            <div> {{result.classification}}</div></p>
+          <p>Status:
+            <div id="recall-number"> {{result.recall_number}}</div></p>
 
           <div class="form-group">
-            <label for="recall-name">Comment:</label>
+            <label for="comment_name">Comment:</label>
             <input
               class="form-input"
               type="text"
-              id="recall-name"
-              name="recall-name"
+              id="comment_name"
+              name="comment_name"
             />
           </div>
           <div class="form-group">
             <button
-              id="submit-manufacturer"
+              id="save-data-button"
               type="submit"
               class="btn btn-primary"
             >SAVE</button>
@@ -32,7 +36,6 @@
       </div>
     </div>
   {{/each}}
-
 {{else}}
   <p>There is no results</p>
 {{/if}}

@@ -9,20 +9,6 @@ let reqUrl
 let status
 let results
 
-function searchObject (root, pathArray) {
-  let node = root
-  for (const index in pathArray) {
-    key = pathArray[index]
-    if (key in node) {
-      node = node[key]
-    } else {
-      node = null
-      break
-    }
-  }
-  return node
-}
-
 router.get('/', withAuth, async (req, res) => {
   try {
     results = []
@@ -53,8 +39,6 @@ router.get('/', withAuth, async (req, res) => {
       if (result.error == null) {
         results.push(...result.results)
       }
-      
-      
     }
     console.log(results)
   } catch (err) {
@@ -74,6 +58,19 @@ router.get('/', withAuth, async (req, res) => {
         found: results.length > 0
       })
     }
+  }
+})
+
+router.post('/', async (req, res) => {
+  try {
+    const newRecall = await Recall.create({
+      ...req.body,
+      user_id: req.session.user_id
+    })
+
+    res.status(200).json(newRecall)
+  } catch (err) {
+    res.status(400).json(err)
   }
 })
 
