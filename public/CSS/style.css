@@ -1,0 +1,46 @@
+:root {
+    --header: black;
+    --link: #312dfa;
+    --gray: #878f99;
+    --purple: #3c1996;
+}
+
+
+#home {
+    color: var(--header);
+}
+
+#home:hover {
+    color: var(--purple);
+    font-size: 102%;
+}
+
+.navLink {
+    color: var(--header);
+    font-size: large;
+}
+.navLink:hover {
+    font-size: 120%;
+}
+
+header {
+    background-blend-mode:darken;
+    border: solid black;
+    border-radius: 5%;
+    /* background-color: rgba(rgb(241, 0, 0,1)); */
+    background-color: chocolate;
+    
+}
+
+.link {
+    color: var(--link);
+}
+
+.link:hover {
+    font-size: 102%;
+}
+
+body {
+    background-image: url(foodBackground.jpg);
+    background-size: cover;
+}
