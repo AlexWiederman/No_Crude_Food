@@ -6,17 +6,21 @@ const withAuth = require('../../utilities/auth')
 require('dotenv').config()
 
 let reqUrl
-/* const resultsArray = [] */
+let status
+let results
 
 router.get('/', withAuth, async (req, res) => {
   try {
-  // Find user sessions id
+    results = []
+    // Find user sessions id
     // console.warn(req.session.user_id)
+
     const manufacData = await UserManufacturer.findAll({
       where: {
         user_id: req.session.user_id
       }
     })
+    // console.log(manufacData)
     const datas = manufacData.map((data) => data.get({ plain: true }))
 
     // replace spaces in string with "+" symbol
@@ -24,29 +28,49 @@ router.get('/', withAuth, async (req, res) => {
     // loop through all of the manufacturers of a user to get all of the api requests per manufacturer
     for (let i = 0; i < datas.length; i++) {
       const apiManufac = datas[i].manufacturer_name.split(' ').join('+')
-      // console.warn(apiManufac)
 
-      reqUrl = `https://api.fda.gov/food/enforcement.json?api_key=${process.env.API_KEY}&search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=5`
-      // urlArray = urlArray.push(reqUrl)
-      /* urls[i] = { url: reqUrl } */
+      reqUrl = `https://api.fda.gov/food/enforcement.json?api_key=${process.env.API_KEY}&search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=2`
+
+      const result = await fetch(reqUrl).then((res) => res.json())
+      console.log(reqUrl)
+      console.log(result)
+      console.log(result.error)
+      // console.log(searchObject(result.error, ["message"]))
+      if (result.error == null) {
+        results.push(...result.results)
+      }
     }
-
-    fetch(reqUrl)
-      .then(res => res.json())
-      .then(function (json) {
-        const results = []
-        results.push(...json.results)
-        console.log(results)
-
-        res.render('seeRecalls', {
-          results,
-          logged_in: req.session.logged_id
-        })
-      })
-    /* res.render('seeRecalls') */
+    console.log(results)
   } catch (err) {
     // Handle any errors that occur during fetch request
-    res.status(500).json({ message: 'Error finding manufacturer relationships' })
+    status = 500
+    res.status(500).json({
+      message:
+        'No food recalls found for your manufacturer(s). Please go back to the page before.'
+    })
+  } finally {
+    // console.log(results)
+    console.log(status)
+    if (status !== 500) {
+      res.render('seeRecalls', {
+        results,
+        logged_in: req.session.logged_id,
+        found: results.length > 0
+      })
+    }
+  }
+})
+
+router.post('/', async (req, res) => {
+  try {
+    const newRecall = await Recall.create({
+      ...req.body,
+      user_id: req.session.user_id
+    })
+
+    res.status(200).json(newRecall)
+  } catch (err) {
+    res.status(400).json(err)
   }
 })
 

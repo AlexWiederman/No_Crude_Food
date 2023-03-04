@@ -1,35 +1,39 @@
-{{!-- <div class="row text-center">
-  <button id="recalls-btn" type="submit" class="btn btn-primary">Get recalls</button>
-</div>
- --}}
-{{#if results.length}}
-{{!-- <div class="col-12 recall list">
-  <h2>Your Recalls:</h2>
- 
+{{#if found}}
+
   {{#each results as |result|}}
-   {{> recallDetails}}
+    <div class="row">
+      <div class="col-12 card">
+        <form class="form">
+          <h1>Recall:</h1>
+  
+          <h2 id="description">{{result.product_description}}</h2>
+          <p>Reason for recall:
+            <div id="reason"> {{result.reason_for_recall}}</div></p>
+          <p>Recalling firm:
+            <div id="recall-firm"> {{result.recalling_firm}}</div></p>
+          <p>Classification:
+            <div> {{result.classification}}</div></p>
+          <p>Status:
+            <div id="recall-number"> {{result.recall_number}}</div></p>
+
+          <div class="form-group">
+            <label for="comment_name">Comment:</label>
+            <input
+              class="form-input"
+              type="text"
+              id="comment_name"
+              name="comment_name"
+            />
+          </div>
+          <div class="form-group">
+            <button
+              id="save-data-button"
+              type="submit"
+              class="btn btn-primary"
+            >SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
   {{/each}}
-</div> --}}
-{{!-- <div class="row">
-    <h1>Recall:</h1>
-<p>{{results.recalling_firm}}</p>
-</div> --}}
-{{#each results as |results|}}
-      <div class="row">
-<h1>Recall:</h1>
-<div>
-  <h2>{{results.product_description}}</h2>
-  <p>Reason for recall: {{results.reason_for_recall}}</p>
-  <p>Recalling firm: {{results.recalling_firm}}</p>
-  <p>Classification: {{results.classification}}</p>
-  <p>Status: {{results.status}}</p>
-    <button class="save-data-button" data-id="{{result.id}}">Save Data</button>
-</div>
-</div>
-    {{/each}}
-
-{{else}}
-<p>There is no results</p>
-{{/if}}
-
-{{!-- <script src="/js/addRecall.js"></script> --}}
+</div> 

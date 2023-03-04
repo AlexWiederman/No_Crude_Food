@@ -1,3 +1,5 @@
+{{#if found}}
+
 {{#each recalls as |recall| }}
 <div class="row mb-4 recall">
   <div class="col-md-5">
@@ -24,3 +26,7 @@
   </div>
 </div>
 {{/each}}
+
+{{else}}
+  <p>There are no saved recalls. Please save recalls to see them here.</p>
+{{/if}}

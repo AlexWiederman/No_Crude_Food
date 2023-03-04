@@ -15,12 +15,17 @@
 // document.body.appendChild(getDataButton)
 
 //  button to save data to /api/FDARoutes
-function saveData (id) {
-  const data = {}
+function saveData (event) {
+  event.preventDefault()
+  const comment = document.querySelector('#comment_name').value.trim()
+  const product_description = document.querySelector('#description')
+  const reason_for_recall = document.querySelector('#reason')
+  const recalling_firm = document.querySelector('#recall-firm')
+  const recall_number = document.querySelector('#recall-number')
 
-  fetch(`/api/FDARoutes=${id}`, {
+  fetch('/api/records', {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify({ comment, product_description, reason_for_recall, recalling_firm, recall_number }),
     headers: { 'Content-Type': 'application/json' }
   }).then(response => {
     if (response.ok) {
@@ -32,11 +37,7 @@ function saveData (id) {
 }
 
 // Add event listener to each button
-const saveDataButtons = document.querySelectorAll('.save-data-button')
-saveDataButtons.forEach(button => {
-  const id = button.dataset.id
-
-  button.addEventListener('click', () => {
-    saveData(id)
-  })
-})
+const saveButton = document.querySelectorAll('#save-data-button')
+for (const i of saveButton) {
+  i.addEventListener('click', saveData)
+}
