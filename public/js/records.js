@@ -1,11 +1,19 @@
 const saveData = async (event) => {
   event.preventDefault()
 
-  const comment = document.querySelector('#comment_name').value.trim()
-  const product_description = document.querySelector('#description').innerHTML.trim()
-  const reason_for_recall = document.querySelector('#reason').innerHTML.trim()
-  const recalling_firm = document.querySelector('#recall-firm').innerHTML.trim()
-  const recall_number = document.querySelector('#recall-number').innerHTML.trim()
+  // Targeting the data that is with the save button that is clicked
+
+  const id = event.target.getAttribute('data-id')
+  
+  // Making sure the recall number is on all data to know it is the correct data
+  const commentRaw = document.querySelector(`.comment_name.${id}`)
+  const comment = commentRaw.value.trim()
+
+  // const comment = "comment"
+  const product_description = document.querySelector(`.description.${id}`).innerHTML.trim()
+  const reason_for_recall = document.querySelector(`.reason.${id}`).innerHTML.trim()
+  const recalling_firm = document.querySelector(`.recall-firm.${id}`).innerHTML.trim()
+  const recall_number = document.querySelector(`.recall-number.${id}`).innerHTML.trim()
 
   console.warn(comment)
   console.warn(product_description)
@@ -40,6 +48,7 @@ const saveData = async (event) => {
 
 // Add event listener to each button
 const saveButton = document.querySelectorAll('#save-data-button')
+console.log(saveButton)
 for (const i of saveButton) {
   i.addEventListener('click', saveData)
 }
