@@ -5,6 +5,12 @@ class Recall extends Model {}
 
 Recall.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     recalling_firm: {
       type: DataTypes.STRING
     },
@@ -31,8 +37,7 @@ Recall.init(
       references: {
         model: 'user',
         key: 'id'
-      },
-      primaryKey: true
+      }
     }
   },
   {
