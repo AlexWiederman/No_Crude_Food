@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 const express = require('express')
 const router = express.Router()
-const { UserManufacturer } = require('../../model')
+const { Recall, UserManufacturer } = require('../../model')
 const withAuth = require('../../utilities/auth')
 require('dotenv').config()
 
@@ -61,17 +61,58 @@ router.get('/', withAuth, async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
+router.post('/comment', withAuth, async (req, res) => {
+  /* posting a new data */
   try {
-    const newRecall = await Recall.create({
-      ...req.body,
+    const recalling_firm = req.body.recalling_firm
+    const recall_number = req.body.recall_number
+    const product_description = req.body.product_description
+    const reason_for_recall = req.body.reason_for_recall
+    const comment = req.body.comment
+
+    const recall = await Recall.create({
+      recalling_firm,
+      recall_number,
+      product_description,
+      reason_for_recall,
+      comment,
       user_id: req.session.user_id
     })
 
-    res.status(200).json(newRecall)
+    res.status(200).json(recall)
   } catch (err) {
     res.status(400).json(err)
   }
 })
+
+// router.put('/comment', withAuth, async (req, res) => {
+//   /* updating a blog on the dashboard list */
+//   try {
+//     const recall = await Recall.update(
+//       {
+//         // we are deleting the usermanufacturer relationship which has the id associated with the manufacturer we clicked to delete which is also associated with our user who is signed in
+//         recalling_firm: req.body.recalling_firm,
+//         recall_number: req.body.recall_number,
+//         product_description: req.body.product_description,
+//         reason_for_recall: req.body.reason_for_recall,
+//         comment: req.body.comment
+//       },
+//       {
+//         where: {
+//           user_id: req.session.user_id
+//         }
+//       }
+//     )
+
+//     if (!recall) {
+//       res.status(404).json({ message: 'No post was found with this id.' })
+//       return
+//     }
+
+//     res.status(200).json(recall)
+//   } catch (err) {
+//     res.status(500).json(err)
+//   }
+// })
 
 module.exports = router

@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const { Recall, User } = require('../../model')
+const withAuth = require('../../utilities/auth')
 
 // Save a new recall
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
   try {
     const newRecall = await Recall.create({
       ...req.body,
@@ -16,7 +17,7 @@ router.post('/', async (req, res) => {
 })
 
 // View a list of past recalls (route : /api/records)
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const recallsData = await Recall.findAll({
       where: {
@@ -41,6 +42,8 @@ router.get('/', async (req, res) => {
     res.status(500).json(err)
   }
 })
+
+
 
 module.exports = router
 
