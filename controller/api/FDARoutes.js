@@ -54,7 +54,7 @@ router.get('/', withAuth, async (req, res) => {
     if (status !== 500) {
       res.render('seeRecalls', {
         results,
-        logged_in: req.session.logged_id,
+        logged_in: req.session.logged_in,
         found: results.length > 0
       })
     }

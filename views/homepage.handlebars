@@ -1,4 +1,11 @@
 <div class="row text-center">
   <h1>Welcome to No-Crude-Food!</h1>
+  {{#if logged_in}}
+  <h2>Click your profile to add or delete manufacturers, </h2>
+  <h2>click see-recalls to see any existing food recalls associated with your manufacturers, </h2>
+  <h2>or click records to see your past food recalls!</h2>
+  
+  {{else}}
   <h2>Please Login above to get started</h2>
+  {{/if}}
 </div>
