@@ -85,34 +85,4 @@ router.post('/comment', withAuth, async (req, res) => {
   }
 })
 
-// router.put('/comment', withAuth, async (req, res) => {
-//   /* updating a blog on the dashboard list */
-//   try {
-//     const recall = await Recall.update(
-//       {
-//         // we are deleting the usermanufacturer relationship which has the id associated with the manufacturer we clicked to delete which is also associated with our user who is signed in
-//         recalling_firm: req.body.recalling_firm,
-//         recall_number: req.body.recall_number,
-//         product_description: req.body.product_description,
-//         reason_for_recall: req.body.reason_for_recall,
-//         comment: req.body.comment
-//       },
-//       {
-//         where: {
-//           user_id: req.session.user_id
-//         }
-//       }
-//     )
-
-//     if (!recall) {
-//       res.status(404).json({ message: 'No post was found with this id.' })
-//       return
-//     }
-
-//     res.status(200).json(recall)
-//   } catch (err) {
-//     res.status(500).json(err)
-//   }
-// })
-
 module.exports = router
