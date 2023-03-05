@@ -19,9 +19,9 @@ After that, you can move back into the project's main folder, and run "node seed
 This application is deployed at https://aqueous-thicket-19245.herokuapp.com/
 Upon opening the site, you will be prompted to click into the login page.  There, new users can sign up for an account, and existing users can log in to their accounts.  Users will then be redirected to their profile page, where they can add new manufacturers to be associated with their account, or delete any manufacturers they are no longer relying on.  From there, users can click to see any recalls associated with their manufacturers, or to see any saved records associated with their account.  When viewing their manufacturers' recalls, a user can choose to save any relevant recalls to their account, and to save a comment with that information to record how they chose to address the recall.  This data will be saved and accessible on the user's records page for later reference, for the restaurant's own record keeping, or as proof of their having acknowledged and handled existing food safety concerns.
 
-![image1](./public/CSS/READMEimage1.png)
-![image2](./public/CSS/READMEimage2.png)
-![image3](./public/CSS/READMEimage3.png)
+![image1](./public/assets/READMEimage1.png)
+![image2](./public/assets/READMEimage2.png)
+![image3](./public/assets/READMEimage3.png)
 
 
 
