@@ -3,7 +3,7 @@
 ## Description
 
 This application is a tool for Restaurants and other businesses which sell food to keep track of any food recalls which impact their business.  Restaurant owners will be able to create an account, and input the manufacturers which they buy from, and will then be presented with any food recalls which are associated with their chosen manufacturers.  This application alerts users to information necessary for customer safety, and allows them an opportunity to track their responses to food recalls which impact the restaurant.  User responses to these recalls are stored to the user's account, and can be accessed as records of the restaurant's acknowledgement and subsequent action to protect customer safety.
-Through building this full-stack application, our team had the opportunity to practice and refine many skills.  We practiced building an application using the MVC paradigm.  We used sequelize models to store, create, access, and delete data, and used express-Handlebars to dynamically display data for our users.  We used express routing to create paths for HTTP requests to our own server, and used javascript functionality to make fetch requests to our API, as well as the FDA's API.  We practiced creating authentication for logging in our users, and protecting their data with brcypt's password hashing.  We also protected our own data with environment variables, using the dotenv package.
+Through building this full-stack application, our team had the opportunity to practice and refine many skills.  We practiced building an application using the MVC paradigm.  We used sequelize models to store, create, access, and delete data, and used express-Handlebars to dynamically display data for our users.  We used express routing to create paths for HTTP requests to our own server, and used javascript functionality to make fetch requests to our API, as well as the FDA's API.  We practiced creating authentication for logging in our users, and protecting their data with brcypt's password hashing.  We also protected our own data with environment variables, using the dotenv package.  This project was also good practice working with session storage.
 
 ## Installation
 
@@ -16,12 +16,13 @@ After that, you can move back into the project's main folder, and run "node seed
 
 ## Usage
 
-This application is deployed at https://aqueous-thicket-19245.herokuapp.com/
+This application is deployed at https://young-mountain-95021.herokuapp.com/
 Upon opening the site, you will be prompted to click into the login page.  There, new users can sign up for an account, and existing users can log in to their accounts.  Users will then be redirected to their profile page, where they can add new manufacturers to be associated with their account, or delete any manufacturers they are no longer relying on.  From there, users can click to see any recalls associated with their manufacturers, or to see any saved records associated with their account.  When viewing their manufacturers' recalls, a user can choose to save any relevant recalls to their account, and to save a comment with that information to record how they chose to address the recall.  This data will be saved and accessible on the user's records page for later reference, for the restaurant's own record keeping, or as proof of their having acknowledged and handled existing food safety concerns.
 
 ![image1](./public/assets/READMEimage1.png)
 ![image2](./public/assets/READMEimage2.png)
 ![image3](./public/assets/READMEimage3.png)
+![image4](./public/assets/READMEimage4.png)
 
 
 
