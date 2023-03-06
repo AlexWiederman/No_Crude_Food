@@ -29,7 +29,7 @@ router.get('/', withAuth, async (req, res) => {
     for (let i = 0; i < datas.length; i++) {
       const apiManufac = datas[i].manufacturer_name.split(' ').join('+')
 
-      reqUrl = `https://api.fda.gov/food/enforcement.json?api_key=${process.env.API_KEY}&search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=2`
+      reqUrl = `https://api.fda.gov/food/enforcement.json?api_key=${process.env.API_KEY}&search=recalling_firm:"${apiManufac}"+AND+status.exact:Ongoing&limit=10`
 
       const result = await fetch(reqUrl).then((res) => res.json())
       console.log(reqUrl)
@@ -54,7 +54,7 @@ router.get('/', withAuth, async (req, res) => {
     if (status !== 500) {
       res.render('seeRecalls', {
         results,
-        logged_in: req.session.logged_id,
+        logged_in: req.session.logged_in,
         found: results.length > 0
       })
     }
