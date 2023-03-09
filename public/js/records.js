@@ -4,7 +4,7 @@ const saveData = async (event) => {
   // Targeting the data that is with the save button that is clicked
 
   const id = event.target.getAttribute('data-id')
-  
+
   // Making sure the recall number is on all data to know it is the correct data
   const commentRaw = document.querySelector(`.comment_name.${id}`)
   const comment = commentRaw.value.trim()

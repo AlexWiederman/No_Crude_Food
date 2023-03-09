@@ -17,12 +17,26 @@
     <p>This record was created on {{format_date recall.date_created}}</p>
   </div>
   <div class="col-md-7 card">
-    <p>
-      {{recall.product_description}}
-    </p>
+    <strong>Recalled Product:</strong>
+    <p>{{recall.product_description}}</p>
 
-    <p>User comments: {{recall.comment}}</p>
-    <p>by {{recall.user.companyName}}</p>
+    <strong>User Comments:</strong>
+    <p>{{recall.comment}}</p>
+
+    <strong>Record Saved By:</strong>
+    <p>{{recall.user.companyName}}</p>
+    <button class="btn btn-sm btn-warning update-record-btn" data-id="{{recall.id}}">Update</button>
+    <div class="update-record-section d-none" data-id="{{recall.id}}">
+      <input
+        class="form-input {{recall.recall_number}} comment_name new-comment-input"
+        type="text"
+        id="comment_name"
+        name="comment_name"
+      />
+      <br>
+      <button class="btn btn-sm btn-warning save-update-btn" data-id="{{recall.id}}">Save</button>
+      <button class="btn btn-sm btn-outline-dark my-2 cancel-update-btn" data-id="{{recall.id}}">Cancel</button>
+    </div> 
   </div>
 </div>
 {{/each}}
@@ -30,3 +44,5 @@
 {{else}}
   <p>There are no saved recalls. Please save recalls to see them here.</p>
 {{/if}}
+
+<script src="../js/savedRecords.js"></script>
