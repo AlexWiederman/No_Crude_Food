@@ -45,12 +45,12 @@ router.get('/', withAuth, async (req, res) => {
 })
 
 // Update the comment on a saved recall
-router.post('/comment/:id', withAuth, async (req, res) => {
+router.put('/comment/:id', withAuth, async (req, res) => {
   try {
     // get the id for the recall
     const recallId = req.body.id
     // get the recall
-    const recallData = await Recall.findAll({
+    const recallData = await Recall.update(req.body, {
       where: {
         id: recallId
       }
@@ -63,7 +63,7 @@ router.post('/comment/:id', withAuth, async (req, res) => {
     recallData.date_edited = format_date(new Date())
   } catch (err) {
     // catch and log any errors
-    console.log(err)
+    console.log('API failed: ' + err)
     alert('Comment cannot be saved.')
   }
 })

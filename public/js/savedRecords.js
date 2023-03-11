@@ -16,13 +16,14 @@ const saveUpdate = async (event) => {
   const id = event.target.getAttribute('data-id')
 
   // get text for updated comment
-  const commentRaw = document.querySelector(`.comment_name.${id}`)
+  const commentRaw = document.querySelector(`#update-comment-input-${id}`)
   const comment = commentRaw.value.trim()
 
   if (comment) {
-    const response = await fetch(`api/savedRecallsRoutes/comment/${id}`, {
+    const response = await fetch(`/api/records/comment/${id}`, {
       method: 'POST',
       body: JSON.stringify({
+        id,
         comment
       }),
       headers: { 'Content-Type': 'application/json' }
@@ -31,9 +32,9 @@ const saveUpdate = async (event) => {
       closeUpdateForm()
     } else {
       alert('savedRecords.js messed up')
+      console.log(response)
     }
-  }
-  else {
+  } else {
     alert('You must enter a new comment in order to update the record.')
   }
 }
