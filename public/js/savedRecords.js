@@ -10,7 +10,6 @@ const openUpdateForm = async (event) => {
 
 // function for saving update comment data
 const saveUpdate = async (event) => {
-  event.preventDefault()
 
   // get id for the target data
   const id = event.target.getAttribute('data-id')
@@ -18,28 +17,34 @@ const saveUpdate = async (event) => {
   // get text for updated comment
   const commentRaw = document.querySelector(`#update-comment-input-${id}`)
   const comment = commentRaw.value.trim()
+  // get current date, will format in API
+  const date_edited = new Date()
 
+  // if there's text in the input section, run the code
   if (comment) {
     const response = await fetch(`/api/records/comment/${id}`, {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify({
         id,
-        comment
+        comment,
+        date_edited
       }),
       headers: { 'Content-Type': 'application/json' }
     })
+    console.log("I did it, I'm the best")
     if (response.ok) {
-      closeUpdateForm()
+      window.location.reload(true)
     } else {
-      alert('savedRecords.js messed up')
+      alert('Unable to update the record. Please try again.')
       console.log(response)
     }
   } else {
+    // alert the user they need text if there isn't any
     alert('You must enter a new comment in order to update the record.')
   }
 }
 
-// function for canceling the comment update
+// function for closing the comment update section
 const closeUpdateForm = async (event) => {
   // define a variable for the update section the button is part of
   const updateRecordSection = event.target.parentElement

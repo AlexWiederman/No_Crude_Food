@@ -55,12 +55,10 @@ router.put('/comment/:id', withAuth, async (req, res) => {
         id: recallId
       }
     })
-    // define the new comment
-    const comment = req.body.comment
     // update the comment for the recall
-    recallData.comment = comment
+    recallData.comment = req.body.comment
     // update date_edited
-    recallData.date_edited = format_date(new Date())
+    recallData.date_edited = format_date(req.body.date_edited)
   } catch (err) {
     // catch and log any errors
     console.log('API failed: ' + err)
