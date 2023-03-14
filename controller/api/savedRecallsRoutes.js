@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { Recall, User } = require('../../model')
 const withAuth = require('../../utilities/auth')
+const { format_date } = require('../../utilities/helper')
 
 // Save a new recall
 router.post('/', withAuth, async (req, res) => {
@@ -43,7 +44,27 @@ router.get('/', withAuth, async (req, res) => {
   }
 })
 
-
+// Update the comment on a saved recall
+router.put('/comment/:id', withAuth, async (req, res) => {
+  try {
+    // get the id for the recall
+    const recallId = req.body.id
+    // get the recall
+    const recallData = await Recall.update(req.body, {
+      where: {
+        id: recallId
+      }
+    })
+    // update the comment for the recall
+    recallData.comment = req.body.comment
+    // update date_edited
+    recallData.date_edited = format_date(req.body.date_edited)
+    res.status(200)
+  } catch (err) {
+    // catch and log any errors
+    console.log('API failed: ' + err)
+  }
+})
 
 module.exports = router
 

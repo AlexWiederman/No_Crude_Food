@@ -29,6 +29,9 @@ Recall.init(
       allowNull: false,
       defaultValue: DataTypes.NOW
     },
+    date_edited: {
+      type: DataTypes.DATE
+    },
     comment: {
       type: DataTypes.STRING
     },
