@@ -59,10 +59,10 @@ router.put('/comment/:id', withAuth, async (req, res) => {
     recallData.comment = req.body.comment
     // update date_edited
     recallData.date_edited = format_date(req.body.date_edited)
+    res.status(200)
   } catch (err) {
     // catch and log any errors
     console.log('API failed: ' + err)
-    alert('Comment cannot be saved.')
   }
 })
 

@@ -10,7 +10,6 @@ const openUpdateForm = async (event) => {
 
 // function for saving update comment data
 const saveUpdate = async (event) => {
-
   // get id for the target data
   const id = event.target.getAttribute('data-id')
 
@@ -20,9 +19,13 @@ const saveUpdate = async (event) => {
   // get current date, will format in API
   const date_edited = new Date()
 
+  // show the notice to refresh the page in case the refresh functionality doesn't work
+  const updateAlertSection = event.target.parentElement.parentElement.parentElement.previousElementSibling
+  updateAlertSection.classList.remove('d-none')
+
   // if there's text in the input section, run the code
   if (comment) {
-    const response = await fetch(`/api/records/comment/${id}`, {
+    await fetch(`/api/records/comment/${id}`, {
       method: 'PUT',
       body: JSON.stringify({
         id,
@@ -31,17 +34,21 @@ const saveUpdate = async (event) => {
       }),
       headers: { 'Content-Type': 'application/json' }
     })
-    console.log("I did it, I'm the best")
+    /*
     if (response.ok) {
-      window.location.reload(true)
+
     } else {
       alert('Unable to update the record. Please try again.')
       console.log(response)
     }
+    */
   } else {
     // alert the user they need text if there isn't any
     alert('You must enter a new comment in order to update the record.')
   }
+
+  // reload the page
+  // location.reload()
 }
 
 // function for closing the comment update section
